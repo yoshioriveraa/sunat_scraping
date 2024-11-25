@@ -43,6 +43,22 @@ def get_data_from_page(DNI):
             # Hacer clic en "Aceptar"
             driver.find_element(By.ID, 'btnAceptar').click()
 
+            # Verificar si ocurre un error, como cuando no se encuentra un RUC
+            try:
+                error_message = Wait(driver, 10).until(
+                    EC.presence_of_element_located((By.TAG_NAME, "strong"))
+                ).text
+                
+                # Si se encuentra el mensaje de error, indicamos que no hay RUC para ese DNI
+                if 'El Sistema RUC NO REGISTRA un número de RUC' in error_message:
+                    print(f"El DNI {DNI} no tiene RUC asociado.")
+                    driver.close()
+                    return None, None  # Devolver None si no hay RUC
+
+            except:
+                # Si no hay mensaje de error, continuamos con la extracción de datos
+                pass
+
             # Esperar a que los elementos de la consulta aparezcan
             Wait(driver, 10).until(
                 EC.presence_of_all_elements_located((By.CLASS_NAME, 'list-group-item-heading'))
@@ -77,21 +93,7 @@ def get_data_from_page(DNI):
             p_elements_3 = Wait(driver, 10).until(
                 EC.presence_of_all_elements_located((By.XPATH, '/html/body/div/div[2]/div/div[3]/div[2]/div[14]/div/div[2]')))
 
-            # Verificar si ocurre un error, como cuando no se encuentra un RUC
-            try:
-                error_message = Wait(driver, 10).until(
-                    EC.presence_of_element_located((By.TAG_NAME, "strong"))
-                ).text
-                
-                # Si se encuentra el mensaje de error, indicamos que no hay RUC para ese DNI
-                if 'El Sistema RUC NO REGISTRA un número de RUC' in error_message:
-                    print(f"El DNI {DNI} no tiene RUC asociado.")
-                    driver.close()
-                    return None, None  # Devolver None si no hay RUC
-
-            except:
-                # Si no hay mensaje de error, continuamos con la extracción de datos
-                pass
+            
 
             # Ahora obtenemos las listas de texto para las siguientes partes
             td_texts = [td.text.strip() for td in td_elements if td.text.strip() != '']

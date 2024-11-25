@@ -1,7 +1,7 @@
 import sqlite3
 import pandas as pd
 
-def read_data_sql(PATH = r'sunat\bdd\database.db'):
+def read_data_sql(PATH = r'bdd\database.db'):
 
     # Conectar a la base de datos SQLite
     conn = sqlite3.connect(PATH)

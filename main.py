@@ -3,12 +3,14 @@ from scraper import get_data_from_page
 from conexion import save_to_sqlite
 import time
 import random
+from clean import read_data_sql
 
 def process_dnis(dnis):
     all_df_1 = []
     all_df_2 = []
 
     for dni in dnis:
+        
         try:
             # Obtener los dataframes para cada DNI
             df_1, df_2 = get_data_from_page(dni)
@@ -45,9 +47,18 @@ def process_dnis(dnis):
 
 if __name__ == '__main__':
     # Lista de DNIs a procesar
-    df_dnis = pd.read_csv(r'sunat\DNIs\dni.csv')
+    df_dnis = pd.read_csv(r'DNIs\dni.csv')
     dnis_list = df_dnis['dni'].astype('str').to_list()
 
     final_df_1, final_df_2 = process_dnis(dnis_list)
 
     save_to_sqlite(final_df_1, final_df_2)
+
+    df_1, df_2 = read_data_sql()
+
+    print(df_1)
+    print(df_2)
+
+    print("Datos limpios guardados correctamente en la base de datos.")
+
+
