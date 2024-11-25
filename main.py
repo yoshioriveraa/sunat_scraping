@@ -4,12 +4,14 @@ from scraper import get_data_from_page
 from conexion import save_to_sql
 import time
 import random
+from clean import read_data_sql
 
 def process_dnis(dnis):
     all_df_1 = []
     all_df_2 = []
 
     for dni in dnis:
+        
         try:
             # Obtener los dataframes para cada DNI
             df_1, df_2 = get_data_from_page(dni)
