@@ -1,6 +1,7 @@
 import pandas as pd
+from clean import clean_column_names, read_data_sql, save_data_sql, transform_df2
 from scraper import get_data_from_page
-from conexion import save_to_sqlite
+from conexion import save_to_sql
 import time
 import random
 
@@ -45,9 +46,21 @@ def process_dnis(dnis):
 
 if __name__ == '__main__':
     # Lista de DNIs a procesar
-    df_dnis = pd.read_csv(r'sunat\DNIs\dni.csv')
+    df_dnis = pd.read_csv(r'DNIs\dni.csv')
     dnis_list = df_dnis['dni'].astype('str').to_list()
 
     final_df_1, final_df_2 = process_dnis(dnis_list)
 
-    save_to_sqlite(final_df_1, final_df_2)
+    # save_to_sqlite(final_df_1, final_df_2)
+
+    # df1, df2 = read_data_sql()
+
+    # Limpiar nombres de columnas
+    df1 = clean_column_names(final_df_1)
+    df2 = clean_column_names(final_df_2, replace_colon=True)
+
+    # Transformar datos del DataFrame df2
+    df2 = transform_df2(df2)
+
+    # Guardar datos en la base de datos
+    save_to_sql(df1, df2)
