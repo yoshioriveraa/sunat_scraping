@@ -53,10 +53,6 @@ if __name__ == '__main__':
 
     final_df_1, final_df_2 = process_dnis(dnis_list)
 
-    # save_to_sqlite(final_df_1, final_df_2)
-
-    # df1, df2 = read_data_sql()
-
     # Limpiar nombres de columnas
     df1 = clean_column_names(final_df_1)
     df2 = clean_column_names(final_df_2, replace_colon=True)
