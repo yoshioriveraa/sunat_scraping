@@ -47,10 +47,10 @@ def get_data_from_page(DNI):
             try:
                 error_message = Wait(driver, 10).until(
                     EC.presence_of_element_located((By.TAG_NAME, "strong"))
-                ).text
+                ).text.strip()
                 
                 # Si se encuentra el mensaje de error, indicamos que no hay RUC para ese DNI
-                if 'El Sistema RUC NO REGISTRA un número de RUC' in error_message:
+                if error_message.startswith('El Sistema RUC NO REGISTRA'):
                     print(f"El DNI {DNI} no tiene RUC asociado.")
                     driver.close()
                     return None, None  # Devolver None si no hay RUC

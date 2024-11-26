@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 
 # Función para leer datos de la base de datos SQLite
-def read_data_sql(PATH=r'bdd/database.db'):
+def read_data_sql(PATH='database.db'):
     """
     Lee datos desde una base de datos SQLite y devuelve dos DataFrames.
     """

@@ -1,6 +1,6 @@
 import sqlite3
 
-def save_to_sql(df_1, df_2, db_name='bdd\database.db'):
+def save_to_sql(df_1, df_2, db_name= r'bdd\database.db'):
     """
     Guarda los DataFrames en una base de datos SQLite.
 
@@ -15,8 +15,8 @@ def save_to_sql(df_1, df_2, db_name='bdd\database.db'):
         if df_1 is not None and df_2 is not None:
             try:
                 # Intenta guardar en la base de datos si ambos DataFrames tienen datos
-                df_1.to_sql(r'bdd\tabla1', conn, if_exists='replace', index=False)
-                df_2.to_sql(r'bdd\tabla2', conn, if_exists='replace', index=False)
+                df_1.to_sql('tabla1', conn, if_exists='replace', index=False)
+                df_2.to_sql('tabla2', conn, if_exists='replace', index=False)
             except Exception as e:
                 print(f"Error al guardar los DataFrames: {e}")
         else:

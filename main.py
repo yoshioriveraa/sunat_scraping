@@ -60,5 +60,8 @@ if __name__ == '__main__':
     # Transformar datos del DataFrame df2
     df2 = transform_df2(df2)
 
+    print(df1)
+    print(df2)
     # Guardar datos en la base de datos
     save_to_sql(df1, df2)
+
