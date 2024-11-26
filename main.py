@@ -4,7 +4,6 @@ from scraper import get_data_from_page
 from conexion import save_to_sql
 import time
 import random
-from clean import read_data_sql
 
 def process_dnis(dnis):
     all_df_1 = []
@@ -48,8 +47,8 @@ def process_dnis(dnis):
 
 if __name__ == '__main__':
     # Lista de DNIs a procesar
-    df_dnis = pd.read_csv(r'DNIs\dni.csv')
-    dnis_list = df_dnis['dni'].astype('str').to_list()
+    df_dnis = pd.read_csv(r'DNIs\dni.csv', dtype = {'dni':str})
+    dnis_list = df_dnis['dni'].to_list()
 
     final_df_1, final_df_2 = process_dnis(dnis_list)
 
