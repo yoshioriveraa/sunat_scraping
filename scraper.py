@@ -107,6 +107,7 @@ def get_data_from_page(DNI):
                 
                 if p_texts and p_texts[0] == mensaje_baja:
                     p_texts = p_texts[1:]
+                    
                 if p_texts and p_texts[-1] == mensaje_baja:
                     p_texts = p_texts[:-1]
 
